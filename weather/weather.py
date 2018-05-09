@@ -1,11 +1,14 @@
 import requests
-import pprint
+import logging
 from .objects.weather_obj import WeatherObject
+import sys
 from .unit import Unit
 
 
 class Weather(object):
     URL = 'http://query.yahooapis.com/v1/public/yql'
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
 
     def __init__(self, unit=Unit.CELSIUS):
         self.unit = unit
@@ -30,16 +33,20 @@ class Weather(object):
         results = self._call(url)
         return results
 
-    @staticmethod
-    def _call(url):
+    def _call(self, url):
         req = requests.get(url)
-
+        self.logger.info("Status Code: %s" % req.status_code)
         if not req.ok:
             req.raise_for_status()
 
-        results = req.json()
-        if int(results['query']['count']) > 0:
-            wo = WeatherObject(results['query']['results']['channel'])
-            return wo
-        else:
-            pprint.pprint(results)
+        try:
+            results = req.json()
+            if int(results['query']['count']) > 0:
+                wo = WeatherObject(results['query']['results']['channel'])
+                return wo
+            else:
+                self.logger.warn("No results found: %s " % results)
+        except Exception as e:
+            self.logger.warn(e)
+            self.logger.warn(req.content)
+            sys.exit(0)
