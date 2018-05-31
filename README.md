@@ -87,3 +87,7 @@ optional arguments:
 ``` {.sourceCode .}
 $ weather dublin --u c
 ```
+
+## Rate Limits
+
+Use of the Yahoo Weather API should not exceed reasonable request volume. Access is limited to 2,000 signed calls per day.
