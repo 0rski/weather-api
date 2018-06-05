@@ -10,8 +10,9 @@ class Weather(object):
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    def __init__(self, unit=Unit.CELSIUS):
+    def __init__(self, unit=Unit.CELSIUS, log=False):
         self.unit = unit
+        self.log = log
 
     def lookup(self, woeid):
         url = "%s?q=select * from weather.forecast where woeid = '%s' and u='%s' &format=json" % (
@@ -35,7 +36,8 @@ class Weather(object):
 
     def _call(self, url):
         req = requests.get(url)
-        self.logger.info("Status Code: %s" % req.status_code)
+        if self.log:
+            self.logger.info("Status Code: %s" % req.status_code)
         if not req.ok:
             req.raise_for_status()
 
@@ -45,7 +47,8 @@ class Weather(object):
                 wo = WeatherObject(results['query']['results']['channel'])
                 return wo
             else:
-                self.logger.warn("No results found: %s " % results)
+                if self.log:
+                    self.logger.warn("No results found: %s " % results)
         except Exception as e:
             self.logger.warn(e)
             self.logger.warn(req.content)
