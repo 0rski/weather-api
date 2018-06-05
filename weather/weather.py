@@ -51,6 +51,7 @@ class Weather(object):
             else:
                 if self.log:
                     self.logger.warn("No results found: %s " % results)
+                return
         except Exception as e:
             self.logger.warn(e)
             self.logger.warn(req.content)
