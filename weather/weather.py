@@ -43,6 +43,8 @@ class Weather(object):
 
         try:
             results = req.json()
+            if self.log:
+                self.logger.info(results)
             if int(results['query']['count']) > 0:
                 wo = WeatherObject(results['query']['results']['channel'])
                 return wo
