@@ -8,6 +8,8 @@ from .wind_obj import Wind
 class WeatherObject(object):
     def __init__(self, weather_data):
         self._weather_data = weather_data
+    def __str__ (self):
+        return self.weather_data
 
     @property
     def last_build_date(self):
