@@ -9,9 +9,16 @@ class WeatherTests(unittest.TestCase):
         data = w.lookup(woeid=560743)
         self.assertIsNotNone(data.print_obj)
         self.assertTrue('Dublin' in data.description)
-        self.assertIsNotNone(data.astronomy)
-        self.assertIsNotNone(data.atmosphere)
-        self.assertIsNotNone(data.condition)
+        self.assertIsNotNone(data.astronomy.sunrise)
+        self.assertIsNotNone(data.astronomy.sunset)
+        self.assertIsNotNone(data.atmosphere.humidity)
+        self.assertIsNotNone(data.atmosphere.pressure)
+        self.assertIsNotNone(data.atmosphere.rising)
+        self.assertIsNotNone(data.atmosphere.visibility)
+        self.assertIsNotNone(data.condition.code)
+        self.assertIsNotNone(data.condition.date)
+        self.assertIsNotNone(data.condition.temp)
+        self.assertIsNotNone(data.condition.text)
         self.assertIsNotNone(data.forecast)
         self.assertIsNotNone(data.image)
         self.assertIsNotNone(data.language)
@@ -29,7 +36,7 @@ class WeatherTests(unittest.TestCase):
         self.assertIsNotNone(data.wind.speed)
 
     def test_search(self):
-        w = Weather(Unit.CELSIUS)
+        w = Weather(Unit.CELSIUS, log=True)
         data = w.lookup_by_location('Dublin')
         self.assertIsNotNone(data.print_obj)
         self.assertTrue('Dublin' in data.description)
@@ -80,5 +87,5 @@ class WeatherTests(unittest.TestCase):
 
     def test_lookup_via_latlng(self):
         w = Weather(Unit.CELSIUS)
-        data = w.lookup_by_latlng(53.3494,-6.2601)
+        data = w.lookup_by_latlng(53.3494, -6.2601)
         self.assertTrue('Dublin' in data.description)

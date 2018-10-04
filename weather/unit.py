@@ -1,4 +1,3 @@
-class Unit:
-    
+class Unit(object):
     CELSIUS = 'c'
     FAHRENHEIT = 'f'

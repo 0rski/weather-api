@@ -37,7 +37,9 @@ class Weather(object):
     def _call(self, url):
         req = requests.get(url)
         if self.log:
+            self.logger.info("Request URL: %s" % req.url)
             self.logger.info("Status Code: %s" % req.status_code)
+            self.logger.info("JSON Response: %s" % req.content)
         if not req.ok:
             req.raise_for_status()
 

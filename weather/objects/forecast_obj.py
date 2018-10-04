@@ -1,6 +1,5 @@
-import re
+from weather.helpers import add_leading_zero
 
-compiled_date_regex = re.compile('(:\d\s)')
 
 class Forecast(object):
     def __init__(self, forecast_data):
@@ -12,11 +11,8 @@ class Forecast(object):
 
     @property
     def date(self):
-        if re.search(compiled_date_regex, self._forecast_data['date']):
-            return re.sub(':',':0',self._forecast_data['date'])
-        else:
-            return self._forecast_data['date']
-        
+        return add_leading_zero(self._forecast_data['date'])
+
     @property
     def high(self):
         return self._forecast_data['high']

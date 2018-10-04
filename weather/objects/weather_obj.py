@@ -3,13 +3,16 @@ from .condition_obj import Condition
 from .location_obj import Location
 from .unit_obj import Unit
 from .wind_obj import Wind
+from .astronomy_obj import Astronomy
+from .atmosphere_obj import Atmosphere
 
 
 class WeatherObject(object):
     def __init__(self, weather_data):
         self._weather_data = weather_data
-    def __str__ (self):
-        return self.weather_data
+
+    def __str__(self):
+        return self._weather_data
 
     @property
     def last_build_date(self):
@@ -29,11 +32,11 @@ class WeatherObject(object):
 
     @property
     def astronomy(self):
-        return self._weather_data['astronomy']
+        return Astronomy(self._weather_data['astronomy'])
 
     @property
     def atmosphere(self):
-        return self._weather_data['atmosphere']
+        return Atmosphere(self._weather_data['atmosphere'])
 
     @property
     def image(self):
