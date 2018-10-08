@@ -46,9 +46,9 @@ class PublishCommand(Command):
 
 setup(name='weather-api',
       version='1.0.6',
-      description='A Python wrapper for the Yahoo Weather XML RSS feed.',
+      description='A Python Wrapper for the Yahoo Weather API.',
       entry_points={
-              "console_scripts": ['weather = weather.main:main']
+          "console_scripts": ['weather = weather.main:main']
       },
       long_description=long_descr,
       url='https://github.com/AnthonyBloomer/weather-api',
@@ -59,6 +59,8 @@ setup(name='weather-api',
       packages=['weather', 'weather.objects', 'weather.helpers'],
       install_requires=[
           'requests',
+          'ptable',
+          'colorize'
       ],
       classifiers=[
           'Intended Audience :: Developers',

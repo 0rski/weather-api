@@ -13,3 +13,4 @@ class Astronomy(object):
     @property
     def sunset(self):
         return add_leading_zero(self._astronomy_data['sunset'])
+
